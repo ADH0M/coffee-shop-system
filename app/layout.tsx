@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import {
+  Coffee,
+  LayoutDashboard,
+  Receipt,
+  ShoppingBag,
+  Users,
+} from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,12 +26,46 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const navItems = [
+    { href: "/", icon: LayoutDashboard, label: "لوحة التحكم" },
+    { href: "/orders", icon: Receipt, label: "الطلبات" },
+    { href: "/menu/beverages", icon: Coffee, label: "المشروبات" },
+    { href: "/menu/retail", icon: ShoppingBag, label: "منتجات البيع بالكيلو" },
+    { href: "/producers", icon: Users, label: "الموردين" },
+  ];
+
   return (
     <html
-      lang="en"
+      lang="ar"
+      dir="rtl"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-screen">
+        <aside className="w-64 bg-surface border-l border-border flex flex-col fixed right-0 h-full z-10">
+          <div className="p-6 border-b border-border">
+            <h1 className="text-xl font-bold text-primary flex items-center gap-2">
+              <Coffee className="w-6 h-6" /> نظام إدارة المقهى
+            </h1>
+          </div>
+          <nav className="flex-1 p-4 space-y-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg text-text-secondary hover:bg-surfaceHighlight hover:text-text-primary transition-colors"
+              >
+                <item.icon className="w-5 h-5" />
+                <span>{item.label}</span>
+              </Link>
+            ))}
+          </nav>
+        </aside>
+
+        {/* المحتوى الرئيسي */}
+        <main className="flex-1 mr-64 p-8 bg-background min-h-screen">
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
