@@ -76,6 +76,7 @@ export default function BeveragesManager() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchBeverages();
   }, [fetchBeverages]);
+  
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
