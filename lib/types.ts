@@ -1,12 +1,4 @@
 // lib/types.ts
-export interface Producer {
-  id: number;
-  name: string;
-  rating: number;
-  created_at: string;
-  phones?: string[]; // Simplified for UI
-}
-
 export interface RetailProduct {
   id: number;
   name: string;
@@ -64,4 +56,12 @@ export interface BeverageFormData {
   is_mahuj: boolean;
   price: number;
   description: string | null;
+}
+
+export interface Producer {
+  producer_id: number;
+  name: string;
+  rating: number;
+  created_at: string;
+  phones?: string[]; 
 }
